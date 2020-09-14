@@ -5,17 +5,13 @@ http.createServer(function(req, res){
         console.log("Inbound 'OK' being processed");
         res.writeHead(200)
         res.end();
-    } else if (req.url === '/404') {
-        console.log("Error code 404")
-        res.writeHead(404)
-        res.end()
     } else if (req.url === '/Created') {
         console.log('Inbound created');
         res.writeHead(201);
         res.end();
     } else if (req.url === '/Moved-Permanently') {
         console.log('Resource moved');
-        res.writeHead(301);
+        res.writeHead(301, {Google: "http://www.google.com"});
         res.end();
     } else if (req.url === '/Found') {
         console.log('Resource moved temporarily');
@@ -41,8 +37,15 @@ http.createServer(function(req, res){
         console.log('Slow server response');
         res.writeHead(504);
         res.end();
+    } else {
+        console.log("Error code 404")
+        res.writeHead(404)
+        res.end()
     }
     res.end();
 }).listen(3000, function(){
     console.log("listening on port 3000...")
 })
+
+
+//header{"Location: http://..."}
